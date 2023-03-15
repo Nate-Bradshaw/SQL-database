@@ -1,9 +1,15 @@
-const initSqlJs = window.initSqlJs;
+const sqlite3 = require('sqlite3').verbose();
 
+function testDB(){
+  const db = new sqlite3.Database('mydatabase.db');
 
-const SQL = await initSqlJs({ //CDN?
-  locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js`
-});
+  db.run(`CREATE TABLE mytable (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    age INTEGER
+  )`);
 
+  return db;
 
-const db = new SQL.Database();
+  db.close();
+}
